@@ -44,7 +44,7 @@ class OrderCreatedConsumer {
       await this.recommendationService.create(body.orderId, body.items, body.createdAt);
     } catch (error) {
       logger.error('Error processing message:', error);
-      throw error;
+      //throw error; Para não represar mensagens no exercício, os erros só serão logados.
     }
   }
 
