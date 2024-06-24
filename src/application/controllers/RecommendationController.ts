@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 import { inject, injectable } from 'tsyringe';
 import logger from '../../infrastructure/config/logger-config';
 import { RecommendationService } from '../../application/services/RecommendationService';
+import { ProductRecommendation } from 'domain/recommendation/entities/ProductRecommendation';
+import { ProductRecommendationResponse } from './responses/ProductRecommendationResponse';
+import { DateUtils } from '../../infrastructure/utils/DateUtils';
 
 @injectable()
 export class RecommendationController {
@@ -27,9 +30,17 @@ export class RecommendationController {
       res.status(400).json({ error: 'Invalid format for params startDate or endDate. Use YYYY-MM-DD) format' });
       return;
     }
-
     const recommendations = await this.recommendationService.getRecommendations(id, startDateObj, endDateObj);
-    res.status(200).send(recommendations);
+    res.status(200).send(this.map(recommendations));
+  }
+
+  private map(productRecommendations: ProductRecommendation): ProductRecommendationResponse {
+      return new ProductRecommendationResponse(
+        productRecommendations.getId(), 
+        DateUtils.getDateString(productRecommendations.startDate),
+        DateUtils.getDateString(productRecommendations.endDate),
+        productRecommendations.recommendations
+      )
   }
 
 }

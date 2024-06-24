@@ -19,6 +19,7 @@ describe('RecommendationController', () => {
       { productId: product2Id, quantity: 1 },
       { productId: product3Id, quantity: 1 },
     ]);
+
   });
 
   it('should get recommendations for a product', async () => {
@@ -32,6 +33,7 @@ describe('RecommendationController', () => {
     expect(response.status).toBe(200);
     const body = response.body;
     expect(Array.isArray(body.recommendations)).toBe(true);
+    expect(body.recommendations.length > 0).toBeTruthy();
     expect(body.recommendations[0].score).toBe(0.5)
     expect(body.recommendations[1].score).toBe(0.5)
   });

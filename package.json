@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./bin/ && tsc",
+    "build": "rimraf ./bin/ && tsc",
     "start": "node bin/app.js",
     "test:unit": "jest --config jest.unit.config.js",
-    "test:integration": "jest --config jest.integration.config.js"
+    "setup-integ": "docker-compose -f docker-compose.integration.yaml up -d",
+    "test:integration": "jest --config jest.integration.config.js",
+    "test:integ": "npm run setup-integ && npm run test:integration",
+    "test": "npm run test:unit && npm run test:integration"
   },
   "keywords": [],
   "author": "",
@@ -36,6 +39,7 @@
     "@typescript-eslint/parser": "^7.13.1",
     "aws-sdk-mock": "^6.0.4",
     "jest": "^29.7.0",
+    "rimraf": "^5.0.7",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.5",
     "ts-node": "^10.9.2",
