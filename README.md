@@ -36,13 +36,13 @@ Utilize os comandos abaixo no terminal, a partir da raiz do projeto.
 2. `npm run build` ou `yarn run build`
 3. `npm start` ou `yarn start`
 
-## API Documentation
+## API - Documentação
 
 As requests abaixo foram exportadas em uma collection do postman que se encontra na raiz do projeto `ms-recommendation.postman_collection.json`
 
 Ao executar localmente, por padrão, a API irá responder no host http://localhost:3000
 
-### 1. Create Product
+### 1. Criar Produto
 
 **Endpoint:** `POST [host]/api/products`
 
@@ -66,7 +66,7 @@ Ao executar localmente, por padrão, a API irá responder no host http://localho
 ```
 Obs.: Para fins do exercício o ID do produto é um numérico sequencial para facilitar a manipulação e teste entre requests.
 
-### 2. Create Order
+### 2. Criar Pedido
 
 **Endpoint:** `POST [host]/api/orders`
 
@@ -104,7 +104,7 @@ Obs.: Para fins do exercício o ID do produto é um numérico sequencial para fa
 - Para fins do exercício, como o response não é utilizado, só foi retornado um status e uma mensagem de sucesso
 - Uma possível melhoria é padronizar o response da API retornando o objeto detalhado com o ID gerado internamente
 
-### 3. Get Product Recommendations
+### 3. Obter Recomendações do Produto
 
 **Endpoint:** `GET [host]/api/products/{product_id}/recommendations`
 
@@ -114,7 +114,7 @@ Obs.: Para fins do exercício o ID do produto é um numérico sequencial para fa
 - `startDate`: Data incial referente ao período do histórico analisado (ex. `2024-01-01`)
 - `endDate`: Data final referente ao período do histórico analisado (ex. `2024-01-31`)
 
-**Response Body:**
+**Response Body: 200**
 ```json
 {
     "startDate": "2024-01-01",
