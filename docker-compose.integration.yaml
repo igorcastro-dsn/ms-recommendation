@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13-alpine
+    container_name: postgres-db-integ
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: recommendation
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata-integ:/var/lib/postgresql/data
+  
+  localstack-integ:
+    image: localstack/localstack
+    container_name: localstack-integ
+    environment:
+      SERVICES: sqs
+    ports:
+      - "4567:4566"
+    volumes:
+      - ./localstack/localstack-setup.sh:/etc/localstack/init/ready.d/script.sh
+  
+  mongo-integ:
+    image: mongo:5.0
+    container_name: mongo-integ
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: mongo
+      MONGO_INITDB_DATABASE: recommendation
+    volumes:
+      - mongo-data-integ:/data/db
+    ports:
+      - "27018:27017"
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app  
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DATABASE: recommendation
+      AWS_ACCESS_KEY_ID: dummy
+      AWS_SECRET_ACCESS_KEY: dummy
+      AWS_REGION: us-east-1
+      AWS_HOST: http://localstack-integ:4566
+      SQS_ORDER_CREATED_QUEUE: ms-recommendation-order-created-queue
+      MONGO_URI: mongodb://mongo:mongo@mongo-integ:27017
+      MONGO_DB_NAME: recommendation
+    depends_on:
+      - db
+    ports:
+      - "3002:3000"
+
+volumes:
+  pgdata-integ:
+  mongo-data-integ:
