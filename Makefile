@@ -18,7 +18,7 @@ test: unit-test integ-test
 unit-test:
 	yarn test:unit
 
-setup-integ-test:
+setup-integ-test: docker-down
 	docker-compose -f docker-compose.integration.yaml up -d
 
 integ-test: setup-integ-test
