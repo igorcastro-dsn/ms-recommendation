@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  db:
+  postgres-db-integ:
     image: postgres:13-alpine
     container_name: postgres-db-integ
     environment:
@@ -41,7 +41,7 @@ services:
       dockerfile: Dockerfile
     container_name: app  
     environment:
-      DB_HOST: db
+      DB_HOST: postgres-db-integ
       DB_PORT: 5432
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
@@ -54,7 +54,7 @@ services:
       MONGO_URI: mongodb://mongo:mongo@mongo-integ:27017
       MONGO_DB_NAME: recommendation
     depends_on:
-      - db
+      - postgres-db-integ
     ports:
       - "3002:3000"
 

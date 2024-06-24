@@ -2,6 +2,8 @@ import request from 'supertest';
 import { createProduct, createOrder } from './utils';
 import { DateUtils } from '../../infrastructure/utils/DateUtils';
 
+jest.setTimeout(10000);
+
 describe('RecommendationController', () => {
   const BASE_URL = 'http://localhost:3002';
 
@@ -26,6 +28,9 @@ describe('RecommendationController', () => {
     const startDate = '2023-01-01';
     const endDate = DateUtils.getCurrentDateString();
 
+     // TODO: Débito técnico - Deixar teste mais dinâmico em relação ao consumo da fila ao invés de aguardar tempo fixo
+    await new Promise(resolve => setTimeout(resolve, 5000));
+
     const response = await request(BASE_URL)
       .get(`/api/products/${product1Id}/recommendations`)
       .query({ startDate, endDate });
@@ -34,8 +39,8 @@ describe('RecommendationController', () => {
     const body = response.body;
     expect(Array.isArray(body.recommendations)).toBe(true);
     expect(body.recommendations.length > 0).toBeTruthy();
-    expect(body.recommendations[0].score).toBe(0.5)
-    expect(body.recommendations[1].score).toBe(0.5)
+    expect(body.recommendations[0].score).toBe(0.5);
+    expect(body.recommendations[1].score).toBe(0.5);
   });
 
   it('should return 400 if startDate or endDate are missing', async () => {

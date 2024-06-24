@@ -15,8 +15,8 @@ class OrderCreatedConsumer {
   private consumer: Consumer;
 
   constructor() {
-    this.queueName = process.env.SQS_ORDER_CREATED_QUEUE || 'ms-recommendation-order-created-queue'
-    this.queueHost = process.env.AWS_HOST || 'http://localhost:4566'
+    this.queueName = process.env.SQS_ORDER_CREATED_QUEUE || 'ms-recommendation-order-created-queue';
+    this.queueHost = process.env.AWS_HOST || 'http://localhost:4566';
     this.queueUrl = `${this.queueHost}/000000000000/${this.queueName}`;
 
     this.sqs = new AWS.SQS({
@@ -39,13 +39,28 @@ class OrderCreatedConsumer {
   }
 
   private async handleMessage(message: AWS.SQS.Message): Promise<void> {
-    try {
-      const body = JSON.parse(message.Body || '{}');
-      await this.recommendationService.create(body.orderId, body.items, body.createdAt);
-    } catch (error) {
-      logger.error('Error processing message:', error);
-      //throw error; Para não represar mensagens no exercício, os erros só serão logados.
+    let attempts = 0;
+    const maxAttempts = 3;
+    const retryInterval = 3000; // 3 segundos
+    
+    const processMessage = async () => {
+      try {
+        const body = JSON.parse(message.Body || '{}');
+        await this.recommendationService.create(body.orderId, body.items, body.createdAt);
+      } catch (error: any) {
+        attempts++;
+        logger.error(`Error processing message attempt ${attempts}:`, error.message);
+        if (attempts < maxAttempts) {
+          await new Promise(resolve => setTimeout(resolve, retryInterval));
+          await processMessage();
+        } else {
+          logger.error(`Error consuming message:`, error.message);
+          //throw error; Para não represar mensagens no exercício, os erros só serão logados.
     }
+      }
+    };
+
+    await processMessage();
   }
 
   private registerEventHandlers(): void {

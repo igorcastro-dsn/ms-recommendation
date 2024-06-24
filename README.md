@@ -136,7 +136,6 @@ Obs.: Para fins do exercício o ID do produto é um numérico sequencial para fa
 - Aqui foi optado por retornar apenas os IDs dos produtos recomendados, imaginando que se for necessãrio buscar detalhes do produto poderá ser utilizada a API especializada nisso (ex. `/api/products/{product_id}`)
 
 ## Execução de testes:
-Comandos possíveis:
 
 ### Utilizando o makefile:
 1. `make unit-test`: Execução dos testes unitários
@@ -145,5 +144,5 @@ Comandos possíveis:
 
 ### Utilizando os scripts do package.json
 - `npm run test:unit` ou `yarn test:unit`: Execução dos testes unitários
-- `npm run test:integration` ou `yarn test:integration`: Execução dos testes integrados
+- `npm run test:integration` ou `yarn test:integ`: Execução dos testes integrados
 - `npm run test` ou `yarn test`: Executa testes unitários e integrados
