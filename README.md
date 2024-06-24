@@ -6,30 +6,30 @@
 
 ### Gerais
 - Para fins do exercício proposto, as APIs e modelagens foram feitas todas dentro de um único projeto porém seguindo uma abordagem baseada no DDD, onde cada camada é bem isolada e responsabilizada facilitando possíveis evoluções da arquitetura. Por exemplo, caso a API de recomedação seja isolada em um serviço independente, ficará mais fácil identificar e realizar a migração dos componentes necessários para o domínio.
-- Visando uma análise custosa de processamento de dados, as recomendações foram idealizadas por meio de pipeline e agregações possibilitadas por uma tecnologia NoSql. Tal escolha visa uma ferramenta própria para processamento de dados e com facilidade em uma escala horizontal se assim for necessário para um maior volume de dados.
-- Para fins do exercício, a análise de recomendação é feita a cada chamada à API de recomendação. Em uma evolução da arquitetura, com alto volume de dados, o processamento poderia ser feito em períodos pré-determinados por meio de jobs e o resultado poderia ser colocado em cache por um determinado tempo. Acredito que o domínio permite uma consistência eventual, ou seja, não necessariamente os pedidos mais recentes precisariam entrar na análise. Uma estratégia poderia ser alinhada juntamente com o time de produto.
-- Dado o contexto anterior, que o domínio pode permitir uma consistência eventual, ao criar um pedido no banco sql um evento async é disparado (por meio de uma fila). Tal evento é consumido por outro componente e então orquestra a replicação dos dados necessários para o banco NoSql, disponibilizando as informações para um processamento de dados.
+- Visando uma análise custosa de processamento de dados, as recomendações foram idealizadas por meio de pipeline e agregações possibilitadas por uma tecnologia NoSql. Tal escolha visa uma ferramenta dedicada para processamento de dados e facilitará a escala horizontal se for necessário para um volume de dados maior.
+- Para fins do exercício, a análise de recomendação é feita em cada chamada à API de recomendação. Em uma evolução da arquitetura, com alto volume de dados, o processamento poderia ser feito em períodos pré-determinados por meio de jobs e o resultado poderia ser colocado em cache por um determinado tempo. Acredito que o domínio permite uma consistência eventual, ou seja, não necessariamente os pedidos mais recentes precisariam entrar na análise. Uma estratégia poderia ser alinhada juntamente com o time de produto.
+- Dado o contexto anterior, que o domínio pode permitir uma consistência eventual, ao criar um pedido no banco sql um evento async é disparado (por meio de uma fila). Tal evento é consumido por outro componente que então orquestra a replicação dos dados necessários para o banco NoSql, disponibilizando as informações para um processamento de dados.
 
 ### Stack 
 - **NodeJs:** Dentre o NodeJs e o PHP minha experiência era maior com o Node no momento.
-- **Banco SQL Postgres:** Para manter consistência e persistir informações relacionadas aos produtos e pedidos, foi obtado por um banco relacional
-- **Banco NoSql MongoDB:** Visto que é necessário realizar uma análise mais custosa no histórico de pedidos, foi optado por uma tecnologia NoSql com MongoDB. Com ele é possível trabalhar com uma estrutura de dados semi-estruturada (ex. json) que permite trabalhar com dados complexos e aninhados. Além disso ele permite trabalhar com processamentos de dados, consultas e agregações complexas, ideal para o problem proposto.
+- **Banco SQL Postgres:** Para manter consistência e persistir informações relacionadas aos produtos e pedidos, foi optado por um banco relacional. Para melhor produtividade e abstração da comunicação com o banco, aqui foi utilizado o **typeorm**.
+- **Banco NoSql MongoDB:** Visto que é necessário realizar uma análise mais custosa no histórico de pedidos, foi optado por uma tecnologia NoSql com MongoDB. Com ele é possível trabalhar com uma estrutura de dados semi-estruturada (ex. json) que permite processar dados complexos e aninhados. Além disso ele permite trabalhar com consultas e agregações complexas, ideal para o problem proposto.
 - **Express:** Framework web escolhido devido à maior experiência pessoal com a ferramenta.
 - **Typescript:** Escolhido devido à maior experiência com linguagens tipadas diminuíndo a curva de aprendizado na implementação do exercício
-- **Docker:** Escolha do ambiente containerizado e padrozinado para testar localmente serviços robustos como os bancos de dados e o SQS. Tal escolha também visa maior facilidade na escalabilidade horizontal da aplicação dentre vários outros benefícios como isolamento, flexibilidade, deploy facilitado e etc. 
+- **Docker:** Escolha do ambiente containerizado e padrozinado para testar localmente serviços robustos como os bancos de dados e o SQS. Tal escolha também visa maior possibilidade e facilidade na escala horizontal da aplicação dentre vários outros benefícios como isolamento, flexibilidade, deploy facilitado e etc. 
 - **AWS SQS:** Tecnologia escolhida para processamento de eventos assíncronos devido à maior experiência pessoal.
 
 ## Instalação 
 Antes de iniciar, instale as dependências com um dos comandos abaixo:
 
-`yarn install` ou `npm npm install`
+`yarn install` ou `npm install`
 
 ## Execução em ambiente local:
 
-Utilize os comandos abaixo no terminal, a partir da raiz do projeto.
+Com o Docker iniciado, utilize os comandos abaixo no terminal a partir da raiz do projeto.
 
 ### Utilizando o makefile:
-1. make start
+1. `make start`
 
 ### Utilizando os scripts do package.json
 1. `docker-compose up -d`
