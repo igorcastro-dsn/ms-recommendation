@@ -20,7 +20,7 @@
 - **AWS SQS:** Tecnologia escolhida para processamento de eventos assíncronos devido à maior experiência pessoal.
 
 ## Instalação 
-Antes de inciar instale as dependências com um dos comandos abaixo:
+Antes de iniciar, instale as dependências com um dos comandos abaixo:
 
 `yarn install` ou `npm npm install`
 
