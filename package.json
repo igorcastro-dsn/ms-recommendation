@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf ./bin/ && tsc",
+    "setup": "shx chmod +x ./localstack/localstack-setup.sh",
     "start": "node bin/app.js",
     "test:unit": "jest --config jest.unit.config.js",
     "setup-integ": "docker-compose -f docker-compose.integration.yaml up -d",
@@ -23,6 +24,7 @@
     "mongoose": "^8.4.3",
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
+    "shx": "^0.3.4",
     "sqs-consumer": "^5.8.0",
     "tsyringe": "^4.8.0",
     "typeorm": "^0.3.20",

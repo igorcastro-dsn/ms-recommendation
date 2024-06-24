@@ -7,8 +7,11 @@ install:
 build:
 	yarn build
 
-start: build docker-up
-	NODE_ENV=development yarn start
+setup:
+    yarn setup
+
+start: build setup docker-up
+    NODE_ENV=development yarn start
 
 test: unit-test integ-test
 

@@ -33,7 +33,8 @@ Com o Docker iniciado, utilize os comandos abaixo no terminal a partir da raiz d
 
 ### Utilizando os scripts do package.json
 1. `docker-compose up -d`
-2. `npm run build` ou `yarn run build`
+2. `npm run build` ou `yarn build`
+3. `npm run setup` ou `yarn setup`
 3. `npm start` ou `yarn start`
 
 ## API - Documentação
@@ -143,6 +144,6 @@ Comandos possíveis:
 3. `make test`: Executa testes unitários e integrados
 
 ### Utilizando os scripts do package.json
-- `npm run test:unit` ou `yarn run test:unit`: Execução dos testes unitários
-- `npm run test:integration` ou `yarn run test:integration`: Execução dos testes integrados
-- `npm run test` ou `yarn run test`: Executa testes unitários e integrados
+- `npm run test:unit` ou `yarn test:unit`: Execução dos testes unitários
+- `npm run test:integration` ou `yarn test:integration`: Execução dos testes integrados
+- `npm run test` ou `yarn test`: Executa testes unitários e integrados
