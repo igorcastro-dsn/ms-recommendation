@@ -133,7 +133,7 @@ Obs.: Para fins do exercício o ID do produto é um numérico sequencial para fa
     "id": "1"
 }
 ```
-- Aqui foi optado por retornar apenas os IDs dos produtos recomendados, imaginando que se for necessãrio buscar detalhes do produto poderá ser utilizada a API especializada nisso (ex. `/api/products/{product_id}`)
+- Aqui foi optado por retornar apenas os IDs dos produtos recomendados, imaginando que se for necessário buscar detalhes do produto, poderá ser utilizada a API especializada nisso (ex. `/api/products/{product_id}`)
 
 ## Execução de testes:
 
