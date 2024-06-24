@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a7719b4a-5ca8-46c8-9f0e-a4df858951f1",
+		"_postman_id": "d9004ea8-54bb-46e3-ad12-28e103724a5e",
 		"name": "ms-recommendation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "337131"
+		"_exporter_id": "20037994"
 	},
 	"item": [
 		{
@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"sku\": \"CCC-723\",\r\n    \"name\": \"Mochila Adidas\",\r\n    \"price\": 320.00\r\n}",
+					"raw": "{\r\n    \"items\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -8,10 +8,10 @@ build:
 	yarn build
 
 setup:
-    yarn setup
+	yarn setup
 
 start: build setup docker-up
-    NODE_ENV=development yarn start
+	NODE_ENV=development yarn start
 
 test: unit-test integ-test
 
